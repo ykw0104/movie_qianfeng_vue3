@@ -25,8 +25,10 @@ const routes = [
   { path: "/center", component: () => import("@/views/Center") },
   /* --3. cinema--------------------------------------------------------------------------------------------------- */
   { path: "/cinema", component: () => import("@/views/Cinema") },
-  /* --3. detail详情页--------------------------------------------------------------------------------------------------- */
+  /* --4. detail详情页--------------------------------------------------------------------------------------------------- */
   { path: "/detail/:myid", component: () => import("@/views/Detail") },
+  /* --5. 登录页--------------------------------------------------------------------------------------------------- */
+  { path: "/login", component: () => import("@/views/Login") },
   /* -- 404页面--------------------------------------------------------------------------------------------------- */
   { path: "/:pathMatch(.*)", component: () => import("@/views/NotFound") },
 ];
@@ -34,6 +36,15 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+/* 守卫导航 */
+router.beforeEach((to, from) => {
+  const auth = ["/center", "/order", "/money", "/card"]; // 需要验证token的组件
+  if (auth.includes(to.fullPath)) {
+    console.log("验证token");
+  }
+  return;
 });
 
 export default router;
