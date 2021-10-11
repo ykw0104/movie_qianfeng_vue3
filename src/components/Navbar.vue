@@ -1,10 +1,7 @@
 <template>
   <div>
-    <ul>
-      <li>首页</li>
-      <li>aaaa</li>
-      <li>bbbb</li>
-    </ul>
+    <button @click="handleClick">click</button>
+    <slot name="btn"></slot>
   </div>
 </template>
 
@@ -12,8 +9,14 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  setup() {
-    return {};
+  emits: ["myevent"],
+
+  setup(props, { emit }) {
+    const handleClick = () => {
+      emit("myevent");
+    };
+
+    return { handleClick };
   },
 });
 </script>

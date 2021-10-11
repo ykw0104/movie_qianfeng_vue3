@@ -1,23 +1,30 @@
 <template>
-  <div class="nav">
-    <navbar></navbar>
-    <sidebar></sidebar>
+  <div class="nav-app">
+    <router-view />
   </div>
 </template>
 
 <script>
-import { defineComponent } from "vue";
-
-import Navbar from "@/components/Navbar.vue";
-import Sidebar from "@/components/Sidebar.vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "NavApp",
-  components: { Navbar, Sidebar },
   setup() {
     return {};
   },
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+li {
+  list-style: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+</style>
