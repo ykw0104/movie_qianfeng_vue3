@@ -14,16 +14,12 @@ const routes = [
       {
         path: "nowplaying",
         component: () =>
-          import(
-            /* webpackChunkName: "kw-film-nowplaying" */ "@/views/film/Nowplaying"
-          ),
+          import(/* webpackChunkName: "kw-film" */ "@/views/film/Nowplaying"),
       },
       {
         path: "comingsoon",
         component: () =>
-          import(
-            /* webpackChunkName: "kw-film-comingsoon" */ "@/views/film/Comingsoon"
-          ),
+          import(/* webpackChunkName: "kw-film" */ "@/views/film/Comingsoon"),
       },
     ],
   },
@@ -39,7 +35,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "kw-cinema" */ "@/views/Cinema"),
   },
-  /* --4. detail详情页--------------------------------------------------------------------------------------------------- */
+  /* --4. detail详情页-------------------------------------------------------------------------------------------- */
   {
     path: "/detail/:myid",
     component: () =>
