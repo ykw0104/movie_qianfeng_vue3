@@ -1,7 +1,8 @@
 <template>
   <div class="nav-app">
+    <tabbar class="tabbar-class"></tabbar>
+
     <router-view />
-    <tabbar></tabbar>
   </div>
 </template>
 

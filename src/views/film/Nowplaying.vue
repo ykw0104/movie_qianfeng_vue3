@@ -1,14 +1,5 @@
 <template>
-  <div>
-    <div style="height:300px;background-color:yellow">鲁班</div>
-
-    <ul>
-      <li>正在热映</li>
-      <li>即将上映</li>
-    </ul>
-
-    <router-view />
-  </div>
+  <div>nnnnnnnn</div>
 </template>
 
 <script>
