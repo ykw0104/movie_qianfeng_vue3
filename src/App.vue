@@ -1,14 +1,22 @@
 <template>
   <div class="nav-app">
     <router-view />
+    <tabbar></tabbar>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
 
+import Tabbar from "@/components/Tabbar";
+
 export default defineComponent({
   name: "NavApp",
+
+  components: {
+    Tabbar,
+  },
+
   setup() {
     return {};
   },
