@@ -9,7 +9,8 @@
       >
         <img class="np-img" :src="data.poster" alt="" />
         <h3>{{ data.name }}</h3>
-        <p>{{ data.actors }}</p>
+        <p class="np-p">主演:{{ actorFilter(data.actors) }}</p>
+        <p>{{ data.nation }} | {{ data.runtime }} 分钟</p>
       </li>
     </ul>
   </div>
@@ -23,6 +24,11 @@ import axios from "axios";
 export default defineComponent({
   setup() {
     const state = reactive({ dataList: [] });
+
+    const actorFilter = (actors) => {
+      if (actors === undefined) return "暂时主演";
+      return actors.map((item) => item.name).join(" "); // 拼接演员列表
+    };
     /* ----------------------------------------------------------------------------------------------------- */
     axios({
       url:
@@ -44,6 +50,7 @@ export default defineComponent({
     return {
       state,
 
+      actorFilter,
       handleClick,
     };
   },
@@ -55,6 +62,12 @@ export default defineComponent({
   .np-img {
     float: left;
     width: 100px;
+  }
+
+  > p.np-p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   &::after {
