@@ -1,25 +1,39 @@
 <template>
   <div>
     <ul>
-      <li v-for="data in dataList" :key="data.id" @click="handleClick(data.id)">
-        {{ data.title }}
+      <li
+        class="np-li"
+        v-for="data in state.dataList"
+        :key="data.filmId"
+        @click="handleClick(data.filmId)"
+      >
+        <img class="np-img" :src="data.poster" alt="" />
+        <h3>{{ data.name }}</h3>
+        <p>{{ data.actors }}</p>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
-
+import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 export default defineComponent({
   setup() {
-    const dataList = ref([
-      { id: 1, title: "夺冠" },
-      { id: 2, title: "姜子牙" },
-      { id: 3, title: "花木兰" },
-    ]);
+    const state = reactive({ dataList: [] });
+    /* ----------------------------------------------------------------------------------------------------- */
+    axios({
+      url:
+        "https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3894384",
+      headers: {
+        "X-Client-Info": `{"a":"3000","ch":"1002","v":"5.0.4","e":"16339133432575399829635073","bc":"110100"}`,
+        "X-Host": "mall.film-ticket.film.list",
+      },
+    }).then((res) => {
+      state.dataList = res.data.data.films;
+    });
 
     const router = useRouter();
     /* ----------------------------------------------------------------------------------------------------- */
@@ -28,7 +42,7 @@ export default defineComponent({
     };
 
     return {
-      dataList,
+      state,
 
       handleClick,
     };
@@ -36,4 +50,17 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.np-li {
+  .np-img {
+    float: left;
+    width: 100px;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+</style>

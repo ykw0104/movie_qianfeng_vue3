@@ -1,20 +1,19 @@
 <template>
   <div>
-    <div style="height:300px;background-color:yellow">鲁班</div>
-
-    <ul>
-      <li>正在热映</li>
-      <li>即将上映</li>
-    </ul>
+    <div style="height:100px;background-color:yellow">鲁班</div>
+    <film-header></film-header>
 
     <router-view />
   </div>
 </template>
 
 <script>
+import FilmHeader from "@/views/film/FilmHeader";
+
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  components: { FilmHeader },
   setup() {
     return {};
   },

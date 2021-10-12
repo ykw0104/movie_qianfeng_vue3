@@ -75,6 +75,8 @@ export default defineComponent({
   height: 50px;
   line-height: 25px;
   text-align: center;
+  background-color: #fff;
+  z-index: 99;
 }
 
 .tb-class {
