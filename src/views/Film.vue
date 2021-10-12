@@ -1,6 +1,8 @@
 <template>
   <div>
     <div style="height:100px;background-color:yellow">鲁班</div>
+
+    <!-- 正在热映/即将上映 -->
     <film-header class="film-header"></film-header>
 
     <router-view />
