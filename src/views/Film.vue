@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="height:100px;background-color:yellow">鲁班</div>
+    <film-swiper></film-swiper>
 
     <!-- 正在热映/即将上映 -->
     <film-header class="film-header"></film-header>
@@ -11,11 +11,12 @@
 
 <script>
 import FilmHeader from "@/views/film/FilmHeader";
+import FilmSwiper from "@/views/film/FilmSwiper";
 
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: { FilmHeader },
+  components: { FilmHeader, FilmSwiper },
   setup() {
     return {};
   },
