@@ -64,7 +64,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   const auth = ["/center", "/order", "/money", "/card"]; // 需要验证token的组件
   if (auth.includes(to.fullPath)) {
-    console.log("验证token, 没有token返回登录页面");
+    // console.log("验证token, 没有token返回登录页面");
   }
   return;
 });

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav-tabbar">
     <el-row>
       <!-- 1. 电影 ------------------------------------------------------------------------- -->
       <el-col :span="8">
@@ -13,7 +13,8 @@
             :class="{ 'tb-active-class': isActive }"
             @click="navigate"
           >
-            电影
+            <i class="iconfont">&#xe610;</i>
+            <span>电影</span>
           </div>
         </router-link>
       </el-col>
@@ -29,7 +30,8 @@
             :class="{ 'tb-active-class': isActive }"
             @click="navigate"
           >
-            影院
+            <i class="iconfont">&#xe677;</i>
+            <span>影院</span>
           </div>
         </router-link>
       </el-col>
@@ -45,7 +47,8 @@
             :class="{ 'tb-active-class': isActive }"
             @click="navigate"
           >
-            我的
+            <i class="iconfont">&#xe8a0;</i>
+            <span>我的</span>
           </div>
         </router-link>
       </el-col>
@@ -64,9 +67,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.tb-class {
-  cursor: pointer;
+.nav-tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  line-height: 25px;
   text-align: center;
+}
+
+.tb-class {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  i {
+    font-size: 20px;
+  }
+
+  span {
+    font-size: 12px;
+  }
 }
 
 .tb-active-class {
