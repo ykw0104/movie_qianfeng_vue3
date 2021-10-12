@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height:100px;background-color:yellow">鲁班</div>
-    <film-header></film-header>
+    <film-header class="film-header"></film-header>
 
     <router-view />
   </div>
@@ -20,4 +20,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.film-header {
+  position: sticky;
+  top: 0px;
+  background-color: #fff;
+}
+</style>
