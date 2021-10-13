@@ -3,17 +3,24 @@
 </template>
 
 <script>
-import { defineComponent, onMounted } from "vue";
-
+import { defineComponent } from "vue";
 import { useRoute } from "vue-router";
+import http from "@/utils/http";
 
 export default defineComponent({
   setup() {
     const route = useRoute();
     /* ----------------------------------------------------------------------------------------------------- */
-    onMounted(() => {
-      console.log(route.params.myid);
+    http({
+      method: "GET",
+      url: `/gateway?filmId=${route.params.myid}&k=2010346`,
+      headers: {
+        "X-Host": "mall.film-ticket.film.info",
+      },
+    }).then((res) => {
+      console.log(res);
     });
+
     /* --------------------------------------------------------------------------------------------------- */
     return {};
   },

@@ -1,13 +1,17 @@
 <template>
   <div class="nav-app">
+    <!-- 底部的Tabbar -->
     <tabbar class="tabbar-class"></tabbar>
 
-    <router-view />
+    <!-- 内容区 -->
+    <div class="main-app">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 import Tabbar from "@/components/Tabbar";
 
@@ -35,5 +39,11 @@ li {
 html,
 body {
   height: 100%;
+}
+
+.nav-app {
+  .main-app {
+    padding-bottom: 50px;
+  }
 }
 </style>

@@ -19,7 +19,7 @@
 <script>
 import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import http from "@/utils/http";
 
 export default defineComponent({
   setup() {
@@ -30,11 +30,10 @@ export default defineComponent({
       return actors.map((item) => item.name).join(" "); // 拼接演员列表
     };
     /* ----------------------------------------------------------------------------------------------------- */
-    axios({
-      url:
-        "https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3894384",
+    http({
+      method: "GET",
+      url: "/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3894384",
       headers: {
-        "X-Client-Info": `{"a":"3000","ch":"1002","v":"5.0.4","e":"16339133432575399829635073","bc":"110100"}`,
         "X-Host": "mall.film-ticket.film.list",
       },
     }).then((res) => {
