@@ -7,6 +7,10 @@
 
     <h2>{{ filminfo.name }} - {{ filminfo.filmType.name }}</h2>
     <div>{{ filminfo.category }}</div>
+    <div>{{ dateFilter(filminfo.premiereAt) }}</div>
+    <div>{{ filminfo.nation }} | {{ filminfo.runtime }}分钟</div>
+
+    <div>{{ filminfo.synopsis }}</div>
   </div>
 </template>
 
@@ -14,6 +18,7 @@
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import http from "@/utils/http";
+import dayjs from "dayjs";
 
 export default defineComponent({
   setup() {
@@ -31,9 +36,15 @@ export default defineComponent({
       filminfo.value = res.data.data.film;
     });
 
+    /* 处理时间戳 */
+    const dateFilter = (premiereAt) => {
+      return dayjs(premiereAt * 1000).format("YYYY-MM-DD");
+    };
     /* --------------------------------------------------------------------------------------------------- */
     return {
       filminfo,
+
+      dateFilter,
     };
   },
 });
