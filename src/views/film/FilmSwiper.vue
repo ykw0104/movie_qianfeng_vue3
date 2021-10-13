@@ -1,24 +1,22 @@
 <template>
-  <div>
-    <swiper
-      class="film-swiper"
-      :slides-per-view="1"
-      :autoplay="swiper_options.autoplay"
-      :loop="swiper_options.loop"
-      :speed="swiper_options.speed"
-      :pagination="swiper_options.pagination"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
-    >
-      <swiper-slide class="film-swiper-slide">Slide 1</swiper-slide>
-      <swiper-slide class="film-swiper-slide">Slide 2</swiper-slide>
-      <swiper-slide class="film-swiper-slide">Slide 3</swiper-slide>
-    </swiper>
-  </div>
+  <swiper
+    class="film-swiper"
+    :slides-per-view="1"
+    :autoplay="swiper_options.autoplay"
+    :loop="swiper_options.loop"
+    :speed="swiper_options.speed"
+    :pagination="swiper_options.pagination"
+  >
+    <template v-for="(img, index) in imgList" :key="index">
+      <swiper-slide>
+        <img class="slide-img" :src="img" alt="" />
+      </swiper-slide>
+    </template>
+  </swiper>
 </template>
 
 <script>
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, ref } from "vue";
 
 /* 引入swiper相关 */
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -60,23 +58,25 @@ export default defineComponent({
       },
     });
 
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log("slide change");
-    };
+    /* 录播图的图片,这里写死了 */
+    const imgList = ref([
+      require("../../img/s1.jpg"),
+      require("../../img/s2.jpg"),
+      require("../../img/s3.jpg"),
+    ]);
+
+    /* ----------------------------------------------------------------------------------------------------- */
     return {
       swiper_options,
-      onSwiper,
-      onSlideChange,
+      imgList,
     };
   },
 });
 </script>
 <style lang="scss" scoped>
 .film-swiper {
-  height: 300px;
-  background-color: #ccc;
+  .slide-img {
+    width: 100%;
+  }
 }
 </style>
