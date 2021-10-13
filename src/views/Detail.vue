@@ -10,7 +10,15 @@
     <div>{{ dateFilter(filminfo.premiereAt) }}</div>
     <div>{{ filminfo.nation }} | {{ filminfo.runtime }}分钟</div>
 
-    <div>{{ filminfo.synopsis }}</div>
+    <div :class="{ 'fl-synopsis': isHidden }">
+      {{ filminfo.synopsis }}
+    </div>
+    <div class="fl-arrow" @click="isHidden = !isHidden">
+      <el-icon>
+        <arrow-down v-if="isHidden" />
+        <arrow-up v-else />
+      </el-icon>
+    </div>
   </div>
 </template>
 
@@ -19,10 +27,13 @@ import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import http from "@/utils/http";
 import dayjs from "dayjs";
+import { ArrowDown, ArrowUp } from "@element-plus/icons";
 
 export default defineComponent({
+  components: { ArrowDown, ArrowUp },
   setup() {
     const filminfo = ref(null); // 保存电影信息
+    const isHidden = ref(true);
 
     const route = useRoute();
     /* ----------------------------------------------------------------------------------------------------- */
@@ -43,6 +54,7 @@ export default defineComponent({
     /* --------------------------------------------------------------------------------------------------- */
     return {
       filminfo,
+      isHidden,
 
       dateFilter,
     };
@@ -55,5 +67,15 @@ export default defineComponent({
   height: 200px;
   background-position: center;
   background-size: cover;
+}
+
+.fl-synopsis {
+  overflow: hidden;
+  height: 42px;
+}
+
+.fl-arrow {
+  text-align: center;
+  background-color: #eee;
 }
 </style>
