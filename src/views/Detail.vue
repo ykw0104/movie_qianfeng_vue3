@@ -19,6 +19,11 @@
         <arrow-up v-else />
       </el-icon>
     </div>
+
+    <h3>演职人员</h3>
+    <detail-swiper :actors="filminfo.actors"> </detail-swiper>
+    <h3>剧照</h3>
+    <detail-swiper-photo :photos="filminfo.photos"></detail-swiper-photo>
   </div>
 </template>
 
@@ -28,9 +33,11 @@ import { useRoute } from "vue-router";
 import http from "@/utils/http";
 import dayjs from "dayjs";
 import { ArrowDown, ArrowUp } from "@element-plus/icons";
+import DetailSwiper from "@/views/detail/DetailSwiper";
+import DetailSwiperPhoto from "@/views/detail/DetailSwiperPhoto";
 
 export default defineComponent({
-  components: { ArrowDown, ArrowUp },
+  components: { ArrowDown, ArrowUp, DetailSwiper, DetailSwiperPhoto },
   setup() {
     const filminfo = ref(null); // 保存电影信息
     const isHidden = ref(true);
