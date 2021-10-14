@@ -51,16 +51,16 @@ export default defineComponent({
     top: {
       // 指令的定义
       mounted(el) {
-        el.style.display = "none";
+        el.style.opacity = 0;
+        el.style.transition = "all 0.5s";
 
         window.onscroll = () => {
-          console.log(11111);
           if (
             (document.documentElement.scrollTop || document.body.scrollTop) > 50
           ) {
-            el.style.display = "block";
+            el.style.opacity = 1;
           } else {
-            el.style.display = "none";
+            el.style.opacity = 0;
           }
         };
       },
