@@ -1,5 +1,7 @@
 <template>
   <div class="fl-detail" v-if="filminfo">
+    <detail-header v-top :title="filminfo.name"></detail-header>
+
     <div
       class="fl-img"
       :style="{ backgroundImage: 'url(' + filminfo.poster + ')' }"
@@ -35,9 +37,39 @@ import dayjs from "dayjs";
 import { ArrowDown, ArrowUp } from "@element-plus/icons";
 import DetailSwiper from "@/views/detail/DetailSwiper";
 import DetailSwiperPhoto from "@/views/detail/DetailSwiperPhoto";
+import DetailHeader from "@/views/detail/DetailHeader";
 
 export default defineComponent({
-  components: { ArrowDown, ArrowUp, DetailSwiper, DetailSwiperPhoto },
+  components: {
+    ArrowDown,
+    ArrowUp,
+    DetailSwiper,
+    DetailSwiperPhoto,
+    DetailHeader,
+  },
+  directives: {
+    top: {
+      // 指令的定义
+      mounted(el) {
+        el.style.display = "none";
+
+        window.onscroll = () => {
+          console.log(11111);
+          if (
+            (document.documentElement.scrollTop || document.body.scrollTop) > 50
+          ) {
+            el.style.display = "block";
+          } else {
+            el.style.display = "none";
+          }
+        };
+      },
+
+      unmounted() {
+        window.onscroll = null; // 防止跳转到其他页面时,还在监听onscroll
+      },
+    },
+  },
   setup() {
     const filminfo = ref(null); // 保存电影信息
     const isHidden = ref(true);
