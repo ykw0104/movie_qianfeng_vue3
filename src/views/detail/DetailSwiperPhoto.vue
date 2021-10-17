@@ -1,7 +1,7 @@
 <template>
   <swiper class="detail-swiper" :slides-per-view="2" :space-between="10">
     <template v-for="(photo, index) in photos" :key="index">
-      <swiper-slide class="detail-swiper-slide">
+      <swiper-slide class="detail-swiper-slide" @click="handlePreview(index)">
         <div
           class="slide-div"
           :style="{ backgroundImage: 'url(' + photo + ')' }"
@@ -16,6 +16,8 @@ import { defineComponent } from "vue";
 
 /* 引入swiper相关 */
 import { Swiper, SwiperSlide } from "swiper/vue";
+import { ImagePreview } from "vant";
+
 import "swiper/swiper.scss";
 
 export default defineComponent({
@@ -23,9 +25,23 @@ export default defineComponent({
     Swiper,
     SwiperSlide,
   },
-  props: ["photos"],
-  setup() {
-    return {};
+  props: {
+    photos: Array,
+  },
+  setup(props) {
+    const handlePreview = (index) => {
+      // vant ImagePreview图片预览功能
+      ImagePreview({
+        images: props.photos,
+        startPosition: index,
+        loop: false,
+        closeable: true,
+        closeIconPosition: "top-left",
+      });
+    };
+    return {
+      handlePreview,
+    };
   },
 });
 </script>
