@@ -48,7 +48,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .cinema {
-  // position: relative; // 修正better-scroll的滚动条位置, 解决出现拉到最底部的bug
+  position: relative; // 修正better-scroll的滚动条位置, 解决出现拉到最底部的bug
   height: calc(100vh - 50px);
   overflow: hidden;
 
