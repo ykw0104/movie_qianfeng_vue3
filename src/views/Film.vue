@@ -28,5 +28,6 @@ export default defineComponent({
   position: sticky;
   top: 0px;
   background-color: #fff;
+  z-index: 99;
 }
 </style>

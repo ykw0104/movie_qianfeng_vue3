@@ -30,12 +30,20 @@ export default defineComponent({
   setup() {
     const state = reactive({ dataList: [] });
     const current = ref(1); // 第几页数据
+    const total = ref(0); // 数据总长度
     /* ----------------------------------------------------------------------------------------------------- */
     // van-list的参数
 
     const loading = ref(false); // 是否正在加载中, 到底会自动改成true
     const finished = ref(false); // 是否结束
+    // 触发vant list的加载事件
     const onLoad = () => {
+      // list长度和total相等, 说明数据已经全部请求完
+      if (state.dataList.length === total.value) {
+        finished.value = true;
+        return;
+      }
+
       // 1. 请求数据
       current.value++;
       http({
@@ -64,6 +72,7 @@ export default defineComponent({
       },
     }).then((res) => {
       state.dataList = res.data.data.films;
+      total.value = res.data.data.total;
     });
 
     const router = useRouter();
