@@ -76,6 +76,7 @@ export default defineComponent({
 
     const route = useRoute();
     /* ----------------------------------------------------------------------------------------------------- */
+
     http({
       method: "GET",
       url: `/gateway?filmId=${route.params.myid}&k=2010346`,
