@@ -39,7 +39,10 @@ export default defineComponent({
     // 触发vant list的加载事件
     const onLoad = () => {
       // list长度和total相等, 说明数据已经全部请求完
-      if (state.dataList.length === total.value) {
+      if (
+        state.dataList.length === total.value &&
+        state.dataList.length !== 0
+      ) {
         finished.value = true;
         return;
       }
