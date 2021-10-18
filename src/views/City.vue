@@ -9,7 +9,10 @@
     <template v-for="data in cityList" :key="data.type">
       <van-index-anchor :index="data.type">{{ data.type }}</van-index-anchor>
       <template v-for="(item, index) in data.list" :key="index">
-        <van-cell :title="item.name" @click="handleChangePage()" />
+        <van-cell
+          :title="item.name"
+          @click="handleChangePage(item.name, item.cityId)"
+        />
       </template>
     </template>
   </van-index-bar>
@@ -18,6 +21,7 @@
 <script>
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import { Toast } from "vant";
 
 import Http from "@/utils/http";
@@ -28,6 +32,8 @@ export default defineComponent({
     const indexList = ref([]); // vant索引值的索引列表
 
     const router = useRouter();
+    const store = useStore();
+
     /* ----------------------------------------------------------------------------------------------------- */
     Http({
       method: "GET",
@@ -71,7 +77,12 @@ export default defineComponent({
       Toast(index);
     };
 
-    const handleChangePage = () => {
+    const handleChangePage = (cityName, cityId) => {
+      // 更新城市信息
+      store.commit("updateCityInfo", {
+        cityName,
+        cityId,
+      });
       router.back();
     };
     return {

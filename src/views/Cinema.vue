@@ -3,7 +3,7 @@
   <van-nav-bar title="标题" @click-left="handleLeft">
     <!-- 左侧 -->
     <template #left>
-      上海 <van-icon name="arrow-down" color="#000" />
+      {{ cityName }} <van-icon name="arrow-down" color="#000" />
     </template>
     <!-- 右侧 -->
     <template #right>
@@ -22,8 +22,9 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, nextTick } from "vue";
+import { defineComponent, ref, onMounted, nextTick, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import BetterScroll from "better-scroll";
 
 import http from "@/utils/http";
@@ -31,13 +32,18 @@ import http from "@/utils/http";
 export default defineComponent({
   setup() {
     const router = useRouter();
+    const store = useStore();
+
     const cinemaList = ref([]);
     const cinemaRef = ref(null);
+
+    const cityName = computed(() => store.state.cityName);
+    const cityId = computed(() => store.state.cityId);
 
     onMounted(() => {
       http({
         method: "GET",
-        url: "/gateway?cityId=440300&ticketFlag=1&k=4268042",
+        url: `/gateway?cityId=${cityId.value}&ticketFlag=1&k=4268042`,
         headers: { "X-Host": "mall.film-ticket.cinema.list" },
       }).then((res) => {
         cinemaList.value = res.data.data.cinemas;
@@ -60,6 +66,8 @@ export default defineComponent({
     return {
       cinemaList,
       cinemaRef,
+      cityName,
+      cityId,
 
       handleLeft,
     };

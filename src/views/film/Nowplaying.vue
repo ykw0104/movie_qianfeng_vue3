@@ -22,8 +22,9 @@
 </template>
 
 <script>
-import { defineComponent, reactive, ref } from "vue";
+import { defineComponent, reactive, ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import http from "@/utils/http";
 
 export default defineComponent({
@@ -31,6 +32,9 @@ export default defineComponent({
     const state = reactive({ dataList: [] });
     const current = ref(1); // 第几页数据
     const total = ref(0); // 数据总长度
+
+    const store = useStore();
+    const cityId = computed(() => store.state.cityId);
     /* ----------------------------------------------------------------------------------------------------- */
     // van-list的参数
 
@@ -51,7 +55,7 @@ export default defineComponent({
       current.value++;
       http({
         method: "GET",
-        url: `/gateway?cityId=110100&pageNum=${current.value}&pageSize=10&type=1&k=3894384`,
+        url: `/gateway?cityId=${cityId.value}&pageNum=${current.value}&pageSize=10&type=1&k=3894384`,
         headers: {
           "X-Host": "mall.film-ticket.film.list",
         },
@@ -69,7 +73,7 @@ export default defineComponent({
     /* ----------------------------------------------------------------------------------------------------- */
     http({
       method: "GET",
-      url: "/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3894384",
+      url: `/gateway?cityId=${cityId.value}&pageNum=1&pageSize=10&type=1&k=3894384`,
       headers: {
         "X-Host": "mall.film-ticket.film.list",
       },
