@@ -30,8 +30,15 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import {
+  defineComponent,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  computed,
+} from "vue";
 import { useRoute } from "vue-router";
+import { useStore } from "vuex";
 import http from "@/utils/http";
 import dayjs from "dayjs";
 import { ArrowDown, ArrowUp } from "@element-plus/icons";
@@ -75,6 +82,17 @@ export default defineComponent({
     const isHidden = ref(true);
 
     const route = useRoute();
+    const store = useStore();
+
+    onMounted(() => {
+      // 进入detail页面时隐藏tabbar
+      store.commit("updateIsTabbarShow", false);
+    });
+
+    onBeforeUnmount(() => {
+      // 离开detail页面时显示tabbar
+      store.commit("updateIsTabbarShow", true);
+    });
     /* ----------------------------------------------------------------------------------------------------- */
 
     http({
