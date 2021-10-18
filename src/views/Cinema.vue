@@ -1,4 +1,16 @@
 <template>
+  <!-- NavBar -->
+  <van-nav-bar title="标题" @click-left="handleLeft">
+    <!-- 左侧 -->
+    <template #left>
+      上海 <van-icon name="arrow-down" color="#000" />
+    </template>
+    <!-- 右侧 -->
+    <template #right>
+      <van-icon name="search" size="22" color="#000" />
+    </template>
+  </van-nav-bar>
+  <!-- 影院信息 -->
   <div class="cinema" ref="cinemaRef">
     <ul>
       <li v-for="data in cinemaList" :key="data.cinemaId">
@@ -11,12 +23,14 @@
 
 <script>
 import { defineComponent, ref, onMounted, nextTick } from "vue";
+import { useRouter } from "vue-router";
 import BetterScroll from "better-scroll";
 
 import http from "@/utils/http";
 
 export default defineComponent({
   setup() {
+    const router = useRouter();
     const cinemaList = ref([]);
     const cinemaRef = ref(null);
 
@@ -37,19 +51,30 @@ export default defineComponent({
         });
       });
     });
+    /* ----------------------------------------------------------------------------------------------------- */
+    /* navbar的左侧点击事件 */
+    const handleLeft = () => {
+      router.push("/city");
+    };
 
     return {
       cinemaList,
       cinemaRef,
+
+      handleLeft,
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
+.van-nav-bar {
+  height: 46px;
+}
+
 .cinema {
   position: relative; // 修正better-scroll的滚动条位置, 解决出现拉到最底部的bug
-  height: calc(100vh - 50px);
+  height: calc(100vh - 96px); // 100vh - 底部tarbar高度 和 顶部navbar高度
   overflow: hidden;
 
   li {

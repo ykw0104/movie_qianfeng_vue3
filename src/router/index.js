@@ -46,6 +46,11 @@ const routes = [
     path: "/login",
     component: () => import(/* webpackChunkName: "kw-login" */ "@/views/Login"),
   },
+  /* --6. 城市列表-------------------------------------------------------------------------------------------------- */
+  {
+    path: "/city",
+    component: () => import(/* webpackChunkName: "kw-city" */ "@/views/City"),
+  },
   /* -- 404页面--------------------------------------------------------------------------------------------------- */
   {
     path: "/:pathMatch(.*)",
