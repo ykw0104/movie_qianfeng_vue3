@@ -35,6 +35,11 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "kw-cinema" */ "@/views/Cinema"),
   },
+  {
+    path: "/cinema/search",
+    component: () =>
+      import(/* webpackChunkName: "kw-cinema" */ "@/views/Search"),
+  },
   /* --4. detail详情页-------------------------------------------------------------------------------------------- */
   {
     path: "/detail/:myid",

@@ -83,7 +83,7 @@ export default defineComponent({
         cityName,
         cityId,
       });
-      router.back();
+      router.back(); // 返回cinema页面
     };
     return {
       cityList,

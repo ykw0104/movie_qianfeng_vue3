@@ -1,6 +1,6 @@
 <template>
   <!-- NavBar -->
-  <van-nav-bar title="标题" @click-left="handleLeft">
+  <van-nav-bar title="标题" @click-left="handleLeft" @click-right="handleRight">
     <!-- 左侧 -->
     <template #left>
       {{ cityName }} <van-icon name="arrow-down" color="#000" />
@@ -13,7 +13,7 @@
   <!-- 影院信息 -->
   <div class="cinema" ref="cinemaRef">
     <ul>
-      <li v-for="data in cinemaList" :key="data.cinemaId">
+      <li v-for="data in cinemaListVuex" :key="data.cinemaId">
         <div>{{ data.name }}</div>
         <div class="address">{{ data.address }}</div>
       </li>
@@ -27,27 +27,30 @@ import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import BetterScroll from "better-scroll";
 
-import http from "@/utils/http";
-
 export default defineComponent({
   setup() {
     const router = useRouter();
     const store = useStore();
 
-    const cinemaList = ref([]);
+    const cinemaListVuex = computed(() => store.state.cinemaList);
     const cinemaRef = ref(null);
 
     const cityName = computed(() => store.state.cityName);
     const cityId = computed(() => store.state.cityId);
 
     onMounted(() => {
-      http({
-        method: "GET",
-        url: `/gateway?cityId=${cityId.value}&ticketFlag=1&k=4268042`,
-        headers: { "X-Host": "mall.film-ticket.cinema.list" },
-      }).then((res) => {
-        cinemaList.value = res.data.data.cinemas;
-
+      if (cinemaListVuex.value.length === 0) {
+        store.dispatch("getCinemaList", cityId.value).then((res) => {
+          nextTick(() => {
+            new BetterScroll(cinemaRef.value, {
+              scrollbar: {
+                fade: true,
+              },
+            });
+          });
+        });
+      } else {
+        // 使用cinemaListVuex缓存
         nextTick(() => {
           new BetterScroll(cinemaRef.value, {
             scrollbar: {
@@ -55,21 +58,28 @@ export default defineComponent({
             },
           });
         });
-      });
+      }
     });
     /* ----------------------------------------------------------------------------------------------------- */
     /* navbar的左侧点击事件 */
     const handleLeft = () => {
+      // 清空cinemaList, 防止选择新的城市后还是老数据
+      store.commit("clearCinemaList");
       router.push("/city");
     };
 
+    const handleRight = () => {
+      router.push("/cinema/search");
+    };
+
     return {
-      cinemaList,
+      cinemaListVuex,
       cinemaRef,
       cityName,
       cityId,
 
       handleLeft,
+      handleRight,
     };
   },
 });
