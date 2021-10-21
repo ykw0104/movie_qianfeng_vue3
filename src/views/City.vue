@@ -79,7 +79,7 @@ export default defineComponent({
 
     const handleChangePage = (cityName, cityId) => {
       // 更新城市信息
-      store.commit("updateCityInfo", {
+      store.commit("city/updateCityInfo", {
         cityName,
         cityId,
       });

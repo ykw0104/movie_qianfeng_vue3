@@ -32,15 +32,15 @@ export default defineComponent({
     const router = useRouter();
     const store = useStore();
 
-    const cinemaListVuex = computed(() => store.state.cinemaList);
+    const cinemaListVuex = computed(() => store.state.cinema.cinemaList);
     const cinemaRef = ref(null);
 
-    const cityName = computed(() => store.state.cityName);
-    const cityId = computed(() => store.state.cityId);
+    const cityName = computed(() => store.state.city.cityName);
+    const cityId = computed(() => store.state.city.cityId);
 
     onMounted(() => {
       if (cinemaListVuex.value.length === 0) {
-        store.dispatch("getCinemaList", cityId.value).then((res) => {
+        store.dispatch("cinema/getCinemaList", cityId.value).then((res) => {
           nextTick(() => {
             new BetterScroll(cinemaRef.value, {
               scrollbar: {
@@ -64,7 +64,7 @@ export default defineComponent({
     /* navbar的左侧点击事件 */
     const handleLeft = () => {
       // 清空cinemaList, 防止选择新的城市后还是老数据
-      store.commit("clearCinemaList");
+      store.commit("cinema/clearCinemaList");
       router.push("/city");
     };
 

@@ -86,12 +86,12 @@ export default defineComponent({
 
     onMounted(() => {
       // 进入detail页面时隐藏tabbar
-      store.commit("updateIsTabbarShow", false);
+      store.commit("tabbar/updateIsTabbarShow", false);
     });
 
     onBeforeUnmount(() => {
       // 离开detail页面时显示tabbar
-      store.commit("updateIsTabbarShow", true);
+      store.commit("tabbar/updateIsTabbarShow", true);
     });
     /* ----------------------------------------------------------------------------------------------------- */
 

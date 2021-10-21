@@ -34,7 +34,7 @@ export default defineComponent({
     const total = ref(0); // 数据总长度
 
     const store = useStore();
-    const cityId = computed(() => store.state.cityId);
+    const cityId = computed(() => store.state.city.cityId);
     /* ----------------------------------------------------------------------------------------------------- */
     // van-list的参数
 

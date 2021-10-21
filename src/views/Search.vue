@@ -25,8 +25,8 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
-    const cinemaListVuex = computed(() => store.state.cinemaList);
-    const cityIdVuex = computed(() => store.state.cityId);
+    const cinemaListVuex = computed(() => store.state.cinema.cinemaList);
+    const cityIdVuex = computed(() => store.state.city.cityId);
 
     const searchVal = ref("");
 
@@ -46,7 +46,7 @@ export default defineComponent({
     });
 
     if (cinemaListVuex.value.length === 0) {
-      store.dispatch("getCinemaList", cityIdVuex.value);
+      store.dispatch("cinema/getCinemaList", cityIdVuex.value);
     }
     /* ----------------------------------------------------------------------------------------------------- */
     const handleCancel = () => {

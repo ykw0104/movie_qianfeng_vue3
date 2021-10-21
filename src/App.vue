@@ -1,7 +1,10 @@
 <template>
   <div class="nav-app">
     <!-- 底部的Tabbar -->
-    <tabbar class="tabbar-class" v-show="$store.state.isTabbarShow"></tabbar>
+    <tabbar
+      class="tabbar-class"
+      v-show="$store.state.tabbar.isTabbarShow"
+    ></tabbar>
 
     <!-- 内容区 -->
     <div class="main-app">
@@ -11,7 +14,7 @@
 </template>
 
 <script>
-import { defineComponent, computed } from "vue";
+import { defineComponent } from "vue";
 
 import Tabbar from "@/components/Tabbar";
 
